@@ -17,6 +17,21 @@ class SearchAppBar extends StatefulWidget {
 
 class _SearchAppBarState extends State<SearchAppBar> {
   bool _isSearch = false;
+  TextEditingController _controller;
+  FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +60,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
           SizedBox(
             height: 22,
             child: TextField(
+              autofocus: true,
+              focusNode: _focusNode,
+              controller: _controller,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -73,6 +91,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
   }
 
   _onCanceButtonPressed(){
+    _focusNode.unfocus();
     _isSearch = false;
     setState(() {});
   }
