@@ -174,7 +174,7 @@ class ProfileScreen extends StatelessWidget {
         color: Colors.white,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _buildActionColumn(iconGame, "我的故事",size),
             _buildActionColumn(iconPhoto, "我的故事",size),

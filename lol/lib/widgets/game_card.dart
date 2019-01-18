@@ -29,7 +29,7 @@ class GameCard extends StatelessWidget {
           child: Column(
             children: <Widget>[
               _buildImage(size),
-              _buildCardBody(),
+              _buildCardBody(size),
             ],
           ),
         ),
@@ -60,7 +60,7 @@ class GameCard extends StatelessWidget {
     );
   }
 
-  Widget _buildCardBody() {
+  Widget _buildCardBody(Size size) {
     final greenButton = 'assets/event/event_green@3.png';
     final redButton = 'assets/event/event_red@3.png';
     final clock = 'assets/event/event_time@3.png';
@@ -99,7 +99,7 @@ class GameCard extends StatelessWidget {
                       children: <Widget>[
                         _getIcon(prize),
                         SizedBox(
-                            width: 180,
+                            width: size.width/2.2,
                             child: Text(
                               '$reward',
                               overflow: TextOverflow.ellipsis,
