@@ -171,6 +171,7 @@ class ProfileScreen extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Container(
         padding: EdgeInsets.all(8),
+        alignment: Alignment.center,
         color: Colors.white,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
