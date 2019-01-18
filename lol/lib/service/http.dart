@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-getBanners() async{
+getBanners() async {
   String url = "http://www.wanandroid.com/banner/json";
 
   String errorMsg;
@@ -22,7 +22,6 @@ getBanners() async{
       print(errorMsg);
       return;
     }
-    //这里偷懒直接打印数据
     print("data:" + data.toString());
   }catch(exception){
     print(exception.toString());
