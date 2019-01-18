@@ -53,7 +53,7 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return status
+    return !status
         ? _buildMessageList(context)
         : ListView.builder(
             padding: EdgeInsets.all(8),
