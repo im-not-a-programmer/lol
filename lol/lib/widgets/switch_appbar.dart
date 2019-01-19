@@ -33,7 +33,8 @@ class _SwitchAppBarState extends State<SwitchAppBar> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    final fontSize = 20.0;
+    final width = MediaQuery.of(context).size.width;
+    final fontSize = width/20;
 
     return AppBar(
       centerTitle: true,

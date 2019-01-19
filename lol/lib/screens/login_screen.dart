@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
       body: SafeArea(
         child: Padding(
@@ -266,6 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //当用户点击返回按钮
   _onBackButtonTap(){
+    Navigator.of(context).pop();
     print('back button tapped');
   }
 

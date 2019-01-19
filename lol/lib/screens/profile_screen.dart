@@ -23,66 +23,64 @@ class ProfileScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
         body: ListView(
-          physics: ScrollPhysics(),
-          padding: EdgeInsets.all(0),
-          children: <Widget>[
-            Container(
-              height: size.width / 1.8,
-              width: size.width,
-              color: Colors.black,
-              child: SafeArea(
-                child: Stack(
-                  overflow: Overflow.visible,
-                  children: <Widget>[
-                    Positioned(
-                        top: 8,
-                        left: 24,
-                        child: _buildLeadingIcon(iconPeople, size)),
-                    Positioned(
-                        top: 8,
-                        right: 24,
-                        child: Row(
-                          children: <Widget>[
-                            _buildLeadingIcon(iconCamera, size),
-                            SizedBox(
-                              width: 24,
-                            ),
-                            _buildLeadingIcon(iconSetting, size)
-                          ],
-                        )),
-                  ],
-                ),
-              ),
+      physics: ScrollPhysics(),
+      padding: EdgeInsets.all(0),
+      children: <Widget>[
+        Container(
+          height: size.width / 1.8,
+          width: size.width,
+          color: Colors.black,
+          child: SafeArea(
+            child: Stack(
+              overflow: Overflow.visible,
+              children: <Widget>[
+                Positioned(
+                    top: 12,
+                    left: 24,
+                    child: _buildLeadingIcon(iconPeople, size)),
+                Positioned(
+                    top: 12,
+                    right: 24,
+                    child: Row(
+                      children: <Widget>[
+                        _buildLeadingIcon(iconCamera, size),
+                        SizedBox(
+                          width: 24,
+                        ),
+                        _buildLeadingIcon(iconSetting, size)
+                      ],
+                    )),
+              ],
             ),
-            Container(
-              height: size.width / 3.4,
-              child: Stack(
-                overflow: Overflow.visible,
-                children: <Widget>[
-                  Positioned(
-                      left: 0,
-                      right: 0,
-                      top: -size.width / 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildProfileCard(size),
-                      )),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            _buildActionRow(size),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-              ),
-              child: MyGame(),
-            ),
-          ],
-        ));
+          ),
+        ),
+        Container(
+          height: size.width / 3.4,
+          child: Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Positioned(
+                  left: 0,
+                  right: 0,
+                  top: -size.width / 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: _buildProfileCard(size),
+                  )),
+            ],
+          ),
+        ),
+        _buildActionRow(size),
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 12,
+            left: 12,
+            right: 12,
+          ),
+          child: MyGame(),
+        ),
+      ],
+    ));
   }
 
   Widget _buildLeadingIcon(String icon, Size size) {
@@ -90,8 +88,13 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildProfileCard(Size size) {
+    final width = size.width;
+    final profilaImageSize = width/4;
+    final nomalFontSize = width/28;
+    final titleFontSize = width/21;
+
     return SizedBox(
-      height: size.width / 1.8,
+      height: size.width / 2,
       child: Card(
         color: Colors.white,
         child: Stack(
@@ -99,48 +102,53 @@ class ProfileScreen extends StatelessWidget {
           fit: StackFit.expand,
           children: <Widget>[
             Positioned(
-              width: size.width - 16,
-              top: -48,
+              width: width - 16,
+              top: -width/8,
               child: Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                        width: 96, height: 96, child: ProfileWidget(iconHead)),
+                        width: profilaImageSize, height: profilaImageSize, child: ProfileWidget(iconHead)),
                     SizedBox(
-                      height: 8,
+                      height: width/50,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text(
-                          '$name',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '$name',
+                              style: TextStyle(
+                                  fontSize: titleFontSize, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                                height: width/24,
+                                width: width/20,
+                                child: Image.asset('$iconVip'))
+                          ],
                         ),
-                        SizedBox(
-                            height: 18,
-                            width: 24,
-                            child: Image.asset('$iconVip'))
+                        Text('$intro',style: TextStyle(fontSize: nomalFontSize),),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Divider(
+                            color: Colors.black.withOpacity(0.2),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            _buildTextColumn(focus, '关注',size),
+                            _buildRotateDivider(),
+                            _buildTextColumn(fans, '粉丝',size),
+                            _buildRotateDivider(),
+                            _buildTextColumn(agp, 'AGP',size),
+                          ],
+                        ),
                       ],
-                    ),
-                    Text('$intro'),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Divider(
-                        color: Colors.black.withOpacity(0.2),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        _buildTextColunm(focus, '关注'),
-                        _buildRotateDivider(),
-                        _buildTextColunm(fans, '粉丝'),
-                        _buildRotateDivider(),
-                        _buildTextColunm(agp, 'AGP'),
-                      ],
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -151,12 +159,12 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextColunm(String text1, String text2) {
+  Widget _buildTextColumn(String text1, String text2,Size size) {
     return Column(
       children: <Widget>[
         Text(
           '$text1',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold,fontSize: size.width/24),
         ),
         Text('$text2'),
       ],
@@ -177,7 +185,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildActionRow(Size size) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.only(left: 12,right: 12),
       child: Container(
         alignment: Alignment.center,
         color: Colors.white,
@@ -226,7 +234,6 @@ class MyGame extends StatefulWidget {
 class _MyGameState extends State<MyGame> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Container(
       color: Colors.white,
       child: Padding(

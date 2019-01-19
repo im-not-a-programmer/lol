@@ -3,12 +3,12 @@ import '../widgets/switch_appbar.dart';
 import '../widgets/notice_card.dart';
 import '../widgets/message_tile.dart';
 
-class MessageScreen extends StatefulWidget {
+class TextScreen extends StatefulWidget {
   @override
-  _MessageScreenState createState() => _MessageScreenState();
+  _TextScreenState createState() => _TextScreenState();
 }
 
-class _MessageScreenState extends State<MessageScreen> {
+class _TextScreenState extends State<TextScreen> {
   bool status = true;
   List<Widget> noticeList = [
     MessageTile('assets/message/message_@me.png', '@我的'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'profile_widget.dart';
 import 'focus_button.dart';
+import 'comment_textfield_sheet.dart';
 
 class LolCard extends StatelessWidget {
 //  final double height;
@@ -15,14 +16,16 @@ class LolCard extends StatelessWidget {
   final String forward = '710万';
   final String comment = '200万';
   final String time = '1小时前';
+  final List<String> images = [];
+//      List.generate(10, (index) => 'assets/home/home_photo1.png');
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Container(
       decoration: BoxDecoration(
-      color: Colors.white, borderRadius: BorderRadius.circular(6)),
+          color: Colors.white, borderRadius: BorderRadius.circular(6)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -30,10 +33,14 @@ class LolCard extends StatelessWidget {
             children: <Widget>[
               _buildProfileRow(),
               _buildTitle(size),
-              _buildDetail(text, image, size),
+              images.isNotEmpty
+                  ? _buildImageRow(size)
+                  : _buildDetail(text, image, size),
             ],
           ),
-          SizedBox(height: 12,),
+          SizedBox(
+            height: 12,
+          ),
           _buildStatusRow(context),
         ],
       ),
@@ -47,11 +54,7 @@ class LolCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _buildProfileWidget(name, intro),
-          SizedBox(
-            height: 30,
-            width: 68,
-            child: FocusButton(_onFocusButtonTapped),
-          )
+          FocusButton(_onFocusButtonTapped)
         ],
       ),
     );
@@ -82,6 +85,9 @@ class LolCard extends StatelessWidget {
   }
 
   Widget _buildTitle(Size size) {
+    final titleTextSize = size.width / 24;
+    final labelTextSize = size.width / 32;
+
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
       child: Row(
@@ -89,7 +95,7 @@ class LolCard extends StatelessWidget {
           Text(
             '$title',
             style: TextStyle(
-              fontSize: size.width / 22,
+              fontSize: titleTextSize,
               color: Colors.black,
             ),
           ),
@@ -107,8 +113,8 @@ class LolCard extends StatelessWidget {
                   ),
                   child: Text(
                     '热议',
-                    style: TextStyle(
-                        fontSize: size.width / 32, color: Colors.white),
+                    style:
+                        TextStyle(fontSize: labelTextSize, color: Colors.white),
                   ),
                 )
               : SizedBox(),
@@ -143,6 +149,21 @@ class LolCard extends StatelessWidget {
     );
   }
 
+  Widget _buildImageRow(Size size) {
+    return SizedBox(
+      height: size.width / 4,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: images.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Image.asset(images[index]),
+            );
+          }),
+    );
+  }
+
   Widget _buildStatusRow(BuildContext context) {
     final unselectedColor = Colors.black.withOpacity(0.5);
 
@@ -160,21 +181,7 @@ class LolCard extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              Icon(
-                Icons.redo,
-                color: unselectedColor,
-                size: 16,
-              ),
-              SizedBox(
-                width: 4,
-              ),
-              Text(
-                '$forward',
-                style: Theme.of(context)
-                    .primaryTextTheme
-                    .subtitle
-                    .copyWith(color: Colors.grey),
-              ),
+              _buildIconRow(Icons.redo, forward, context),
               SizedBox(
                   height: 16,
                   child: RotatedBox(
@@ -183,23 +190,49 @@ class LolCard extends StatelessWidget {
                       color: Colors.black,
                     ),
                   )),
-              Icon(
-                Icons.comment,
-                color: unselectedColor,
-                size: 16,
-              ),
-              SizedBox(
-                width: 4,
-              ),
-              Text(
-                '$comment',
-                  style: Theme.of(context).primaryTextTheme.subtitle.copyWith(color: Colors.grey),
-              ),
+              GestureDetector(
+                  onTap: () => _onCommentButtonPressed(context),
+                  child: _buildIconRow(Icons.comment, comment, context)),
             ],
           )
         ],
       ),
     );
+  }
+
+  Widget _buildIconRow(IconData icon, String text, BuildContext context) {
+    final color = Colors.grey;
+    final iconSize = 16.0;
+
+    return Row(
+      children: <Widget>[
+        Icon(
+          icon,
+          color: color,
+          size: iconSize,
+        ),
+        SizedBox(
+          width: 4,
+        ),
+        Text(
+          '$text',
+          style: Theme.of(context)
+              .primaryTextTheme
+              .subtitle
+              .copyWith(color: color),
+        )
+      ],
+    );
+  }
+
+  _onCommentButtonPressed(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return CommentTextFieldSheet();
+        });
   }
 
   _onFocusButtonTapped() {
