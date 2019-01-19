@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white.withOpacity(0.7),
       ),
       home: MainScreen(),
-//    home: LoginScreen(),
+      routes: <String, WidgetBuilder> {
+        '/login': (_) => new LoginScreen(),
+      },
     );
   }
 }

@@ -22,7 +22,6 @@ class _MainScreenState extends State<MainScreen>
         'assets/home/home_icon5b.png', 'assets/home/home_icon5y.png', '我'),
   ];
   int _currentIndex = 0;
-
   @override
   void initState() {
     super.initState();

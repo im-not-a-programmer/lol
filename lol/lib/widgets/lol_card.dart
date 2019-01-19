@@ -123,7 +123,7 @@ class LolCard extends StatelessWidget {
         Expanded(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: Text(
                 text,
                 maxLines: 4,
