@@ -12,6 +12,8 @@ class PeopleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -42,7 +44,7 @@ class PeopleTile extends StatelessWidget {
                           Text(
                             '$name',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+                                fontWeight: FontWeight.bold, fontSize: size.width/24),
                           ),
                           isVip
                               ? SizedBox(
@@ -53,12 +55,12 @@ class PeopleTile extends StatelessWidget {
                               : SizedBox()
                         ],
                       ),
-                      intro != null ? Text('$intro') : SizedBox(),
+                      intro != null ? Text('$intro',style: TextStyle(fontSize: size.width/30),) : SizedBox(),
                       Column(
                         children: <Widget>[
                           Text(
                             '粉丝：$fans',
-                            style: TextStyle(color: Colors.grey),
+                            style: TextStyle(fontSize: size.width/30,color: Colors.grey),
                           )
                         ],
                       )

@@ -4,14 +4,15 @@ import 'focus_button.dart';
 
 class LolCard extends StatelessWidget {
 //  final double height;
-  final String text ='LOL和DOTA2撕了这么多年，至今未有定论。'
-  '————好在本文大规模使用了数据分析武器，'
-  '目的就是打造一个全新的场地，让大家撕个痛快';
+  final String text = 'LOL和DOTA2撕了这么多年，至今未有定论。'
+      '————好在本文大规模使用了数据分析武器，'
+      '目的就是打造一个全新的场地，让大家撕个痛快';
   final String image = 'assets/home/home_photo1.png';
-  final String name  = "浮生";
+  final String title = '是什么导致了LOL败给了DOTA';
+  final String name = "浮生";
   final String intro = "二次元棋圣";
   final bool isHot = true;
-  final String forward ='710万';
+  final String forward = '710万';
   final String comment = '200万';
   final String time = '1小时前';
 
@@ -20,7 +21,6 @@ class LolCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     
     return Container(
-      height: size.width/1.8,
       decoration: BoxDecoration(
       color: Colors.white, borderRadius: BorderRadius.circular(6)),
       child: Column(
@@ -29,11 +29,12 @@ class LolCard extends StatelessWidget {
           Column(
             children: <Widget>[
               _buildProfileRow(),
-              _buildTitle(),
-              _buildDetail(text, image)
+              _buildTitle(size),
+              _buildDetail(text, image, size),
             ],
           ),
-          _buildStatusRow(),
+          SizedBox(height: 12,),
+          _buildStatusRow(context),
         ],
       ),
     );
@@ -80,15 +81,15 @@ class LolCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(Size size) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
       child: Row(
         children: <Widget>[
           Text(
-            '是什么导致了LOL败给DOTA',
+            '$title',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: size.width / 22,
               color: Colors.black,
             ),
           ),
@@ -106,7 +107,8 @@ class LolCard extends StatelessWidget {
                   ),
                   child: Text(
                     '热议',
-                    style: TextStyle(fontSize: 12, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: size.width / 32, color: Colors.white),
                   ),
                 )
               : SizedBox(),
@@ -115,7 +117,7 @@ class LolCard extends StatelessWidget {
     );
   }
 
-  Widget _buildDetail(String text, String image) {
+  Widget _buildDetail(String text, String image, Size size) {
     return Row(
       children: <Widget>[
         Expanded(
@@ -124,9 +126,11 @@ class LolCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8),
               child: Text(
                 text,
-                maxLines: 5,
+                maxLines: 4,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.black.withOpacity(0.5)),
+                style: TextStyle(
+                    color: Colors.black.withOpacity(0.5),
+                    fontSize: size.width / 28),
               ),
             )),
         Expanded(
@@ -139,7 +143,7 @@ class LolCard extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusRow() {
+  Widget _buildStatusRow(BuildContext context) {
     final unselectedColor = Colors.black.withOpacity(0.5);
 
     return Padding(
@@ -149,7 +153,10 @@ class LolCard extends StatelessWidget {
         children: <Widget>[
           Text(
             time,
-            style: TextStyle(color: unselectedColor),
+            style: Theme.of(context)
+                .primaryTextTheme
+                .subtitle
+                .copyWith(color: Colors.grey),
           ),
           Row(
             children: <Widget>[
@@ -162,8 +169,11 @@ class LolCard extends StatelessWidget {
                 width: 4,
               ),
               Text(
-                '$forward万',
-                style: TextStyle(color: unselectedColor),
+                '$forward',
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .subtitle
+                    .copyWith(color: Colors.grey),
               ),
               SizedBox(
                   height: 16,
@@ -182,8 +192,8 @@ class LolCard extends StatelessWidget {
                 width: 4,
               ),
               Text(
-                '$comment万',
-                style: TextStyle(color: unselectedColor),
+                '$comment',
+                  style: Theme.of(context).primaryTextTheme.subtitle.copyWith(color: Colors.grey),
               ),
             ],
           )
