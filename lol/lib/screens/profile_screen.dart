@@ -67,6 +67,7 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
         ),
+        SizedBox(height: 16,),
         _buildActionRow(size),
         MyGame(),
       ],
@@ -79,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildProfileCard(Size size) {
     return SizedBox(
-      height: size.width / 2,
+      height: size.width / 1.8,
       child: Card(
         color: Colors.white,
         child: Stack(
@@ -119,18 +120,15 @@ class ProfileScreen extends StatelessWidget {
                         color: Colors.black.withOpacity(0.2),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          _buildTextColunm(focus, '关注'),
-                          _buildRotateDivider(),
-                          _buildTextColunm(fans, '粉丝'),
-                          _buildRotateDivider(),
-                          _buildTextColunm(agp, 'AGP'),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        _buildTextColunm(focus, '关注'),
+                        _buildRotateDivider(),
+                        _buildTextColunm(fans, '粉丝'),
+                        _buildRotateDivider(),
+                        _buildTextColunm(agp, 'AGP'),
+                      ],
                     ),
                   ],
                 ),
@@ -225,7 +223,6 @@ class _MyGameState extends State<MyGame> {
         right: 8,
       ),
       child: Container(
-        height: size.width / 4,
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
