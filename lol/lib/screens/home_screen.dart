@@ -68,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Swiper(
-
               autoplay: true,
               itemCount: introImages.length,
               itemBuilder: (context, index) {
@@ -77,6 +76,10 @@ class _HomeScreenState extends State<HomeScreen> {
               curve: Curves.fastOutSlowIn,
               pagination: SwiperPagination(
                 margin: EdgeInsets.all(8),
+                builder: DotSwiperPaginationBuilder(
+                  color: Color.fromRGBO(250, 250, 250, 0.7),
+                  activeColor: Colors.white,
+                )
               ),
             ),
           ),
