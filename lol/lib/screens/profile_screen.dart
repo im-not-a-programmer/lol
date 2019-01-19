@@ -23,7 +23,8 @@ class ProfileScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-        body: Column(
+        body: ListView(
+          padding: EdgeInsets.all(0),
       children: <Widget>[
         Container(
           height: size.width / 1.8,
@@ -191,7 +192,10 @@ class ProfileScreen extends StatelessWidget {
         width: size.width/6,
         child: Column(
           children: <Widget>[
-            SizedBox(height: size.width/12, width: 88, child: Image.asset(image)),
+            Container(
+                padding: EdgeInsets.all(16),
+                height: size.width/6,
+                child: Image.asset(image)),
             SizedBox(
               height: 8,
             ),
