@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         _buildActionRow(size),
-        _buildMyGame(size),
+        MyGame(),
       ],
     ));
   }
@@ -168,14 +168,13 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildActionRow(Size size) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
-        padding: EdgeInsets.all(8),
         alignment: Alignment.center,
         color: Colors.white,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _buildActionColumn(iconGame, "我的故事",size),
             _buildActionColumn(iconPhoto, "我的故事",size),
@@ -189,24 +188,41 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildActionColumn(String image, String title,Size size) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: size.width/12, width: 88, child: Image.asset(image)),
-          SizedBox(
-            height: 8,
-          ),
-          Text('$title')
-        ],
+      padding: const EdgeInsets.all(8),
+      child: SizedBox(
+        width: size.width/6,
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: size.width/12, width: 88, child: Image.asset(image)),
+            SizedBox(
+              height: 8,
+            ),
+            Text('$title')
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget _buildMyGame(Size size) {
+class MyGame extends StatefulWidget {
+  final bool hasGame = false;
+
+  @override
+  _MyGameState createState() => _MyGameState();
+}
+
+class _MyGameState extends State<MyGame> {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(
-        left: 12,
-        right: 12,
+        left: 8,
+        right: 8,
       ),
       child: Container(
         height: size.width / 4,
@@ -217,7 +233,10 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('我的比赛',style: TextStyle(fontSize: 18),),
-              Divider()
+              Divider(),
+              widget.hasGame
+                  ?Container()
+                  :Align(child: Text('暂无任何比赛',style: TextStyle(color: Colors.grey),),alignment: Alignment.center,)
             ],
           ),
         ),
@@ -225,3 +244,4 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
