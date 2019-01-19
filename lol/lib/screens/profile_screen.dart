@@ -21,62 +21,72 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
         body: ListView(
+          physics: ScrollPhysics(),
           padding: EdgeInsets.all(0),
-      children: <Widget>[
-        Container(
-          height: size.width / 1.8,
-          width: size.width,
-          color: Colors.black,
-          child: SafeArea(
-            child: Stack(
-              overflow: Overflow.visible,
-              children: <Widget>[
-                Positioned(
-                    top: 8, left: 24, child: _buildLeadingIcon(iconPeople,size)),
-                Positioned(
-                    top: 8,
-                    right: 24,
-                    child: Row(
-                      children: <Widget>[
-                        _buildLeadingIcon(iconCamera,size),
-                        SizedBox(
-                          width: 24,
-                        ),
-                        _buildLeadingIcon(iconSetting,size)
-                      ],
-                    )),
-              ],
+          children: <Widget>[
+            Container(
+              height: size.width / 1.8,
+              width: size.width,
+              color: Colors.black,
+              child: SafeArea(
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Positioned(
+                        top: 8,
+                        left: 24,
+                        child: _buildLeadingIcon(iconPeople, size)),
+                    Positioned(
+                        top: 8,
+                        right: 24,
+                        child: Row(
+                          children: <Widget>[
+                            _buildLeadingIcon(iconCamera, size),
+                            SizedBox(
+                              width: 24,
+                            ),
+                            _buildLeadingIcon(iconSetting, size)
+                          ],
+                        )),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
-        Container(
-          height: size.width / 3.4,
-          child: Stack(
-            overflow: Overflow.visible,
-            children: <Widget>[
-              Positioned(
-                  left: 0,
-                  right: 0,
-                  top: -size.width / 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: _buildProfileCard(size),
-                  )),
-            ],
-          ),
-        ),
-        SizedBox(height: 16,),
-        _buildActionRow(size),
-        MyGame(),
-      ],
-    ));
+            Container(
+              height: size.width / 3.4,
+              child: Stack(
+                overflow: Overflow.visible,
+                children: <Widget>[
+                  Positioned(
+                      left: 0,
+                      right: 0,
+                      top: -size.width / 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: _buildProfileCard(size),
+                      )),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            _buildActionRow(size),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+              ),
+              child: MyGame(),
+            ),
+          ],
+        ));
   }
 
-  Widget _buildLeadingIcon(String icon,Size size) {
-    return SizedBox(height: size.width/18, child: Image.asset(icon));
+  Widget _buildLeadingIcon(String icon, Size size) {
+    return SizedBox(height: size.width / 18, child: Image.asset(icon));
   }
 
   Widget _buildProfileCard(Size size) {
@@ -167,7 +177,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildActionRow(Size size) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       child: Container(
         alignment: Alignment.center,
         color: Colors.white,
@@ -175,26 +185,26 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _buildActionColumn(iconGame, "我的故事",size),
-            _buildActionColumn(iconPhoto, "我的故事",size),
-            _buildActionColumn(iconTeam, "我的战队",size),
-            _buildActionColumn(iconMatch, "我的比赛",size),
+            _buildActionColumn(iconGame, "我的故事", size),
+            _buildActionColumn(iconPhoto, "我的故事", size),
+            _buildActionColumn(iconTeam, "我的战队", size),
+            _buildActionColumn(iconMatch, "我的比赛", size),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildActionColumn(String image, String title,Size size) {
+  Widget _buildActionColumn(String image, String title, Size size) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: SizedBox(
-        width: size.width/6,
+        width: size.width / 6,
         child: Column(
           children: <Widget>[
             Container(
                 padding: EdgeInsets.all(16),
-                height: size.width/6,
+                height: size.width / 6,
                 child: Image.asset(image)),
             SizedBox(
               height: 8,
@@ -215,34 +225,33 @@ class MyGame extends StatefulWidget {
 }
 
 class _MyGameState extends State<MyGame> {
-
-
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 8,
-        right: 8,
-      ),
-      child: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('我的比赛',style: TextStyle(fontSize: 18),),
-              Divider(),
-              widget.hasGame
-                  ?Container()
-                  :Align(child: Text('暂无任何比赛',style: TextStyle(color: Colors.grey),),alignment: Alignment.center,)
-            ],
-          ),
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              '我的比赛',
+              style: TextStyle(fontSize: 18),
+            ),
+            Divider(),
+            widget.hasGame
+                ? Container()
+                : Align(
+                    child: Text(
+                      '暂无任何比赛',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    alignment: Alignment.center,
+                  )
+          ],
         ),
       ),
     );
   }
 }
-

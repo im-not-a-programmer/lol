@@ -36,8 +36,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
   @override
   Widget build(BuildContext context) {
     final searchIcon = 'assets/find/find_search2.png';
+    final size = MediaQuery.of(context).size;
 
-    return _isSearch?_buildSearchBar(): SwitchAppBar(
+    return _isSearch?_buildSearchBar(size): SwitchAppBar(
       '${widget.text1}',
       '${widget.text2}',
       Padding(
@@ -52,8 +53,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
     );
   }
 
-  Widget _buildSearchBar(){
+  Widget _buildSearchBar(Size size){
     return AppBar(
+      titleSpacing: 8,
       title: Column(
         children: <Widget>[
           SizedBox(height: 4,),
@@ -74,11 +76,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
           SizedBox(height: 8,),
         ],
       ),
-      actions: <Widget>[FlatButton(
-        padding: EdgeInsets.all(0),
-        child: Text('取消',style: TextStyle(color: Colors.white,fontSize: 18),),
-        onPressed: _onCanceButtonPressed,
-      ),],
+      actions: <Widget>[
+        InkWell(
+          onTap: _onCanceButtonPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Center(child: Text('取消',style: TextStyle(color: Colors.white,fontSize: 18),)),
+          ),
+        ),
+      ],
     );
   }
 
