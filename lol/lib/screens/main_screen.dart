@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens.dart';
 import '../utils/continued.dart';
+import '../widgets/hint_widget.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -65,7 +66,7 @@ class _MainScreenState extends State<MainScreen>
           .map((item) => BottomNavigationBarItem(
                 icon: SizedBox(height: iconSize, child: Image.asset(item.icon)),
                 activeIcon: SizedBox(
-                    height: iconSize, child: Image.asset(item.activeIcon)),
+                    height: iconSize, child: HintWidget(true, Image.asset(item.activeIcon))),
                 title: Text(item.title),
               ))
           .toList(),
