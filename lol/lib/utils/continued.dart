@@ -12,7 +12,23 @@ class Sp {
     });
   }
 
+  static deleteS(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(key);
+  }
+
   static putToken(String value) {
     put("token", value);
+  }
+
+  static getToken(Function callback) async {
+    SharedPreferences.getInstance().then((prefs) {
+      callback(prefs.getString('token'));
+    });
+  }
+
+  static deleteToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('token');
   }
 } 
