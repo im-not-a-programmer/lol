@@ -160,11 +160,7 @@ class LolCard extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              Icon(
-                Icons.redo,
-                color: unselectedColor,
-                size: 16,
-              ),
+             
               SizedBox(
                 width: 4,
               ),

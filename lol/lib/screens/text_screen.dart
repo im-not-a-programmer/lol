@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import '../widgets/switch_appbar.dart';
 import '../widgets/notice_card.dart';
 import '../widgets/message_tile.dart';
 
-class MessageScreen extends StatefulWidget {
+class TextScreen extends StatefulWidget {
   @override
-  _MessageScreenState createState() => _MessageScreenState();
+  _TextScreenState createState() => _TextScreenState();
 }
 
-class _MessageScreenState extends State<MessageScreen> {
+class _TextScreenState extends State<TextScreen> {
   bool status = true;
   List<Widget> noticeList = [
     MessageTile('assets/message/message_@me.png', '@我的'),
@@ -38,9 +37,10 @@ class _MessageScreenState extends State<MessageScreen> {
   Widget _buildSearchBar() {
     return AppBar(
       title: Text('正文'),
+      backgroundColor: Color.fromRGBO(113, 12, 113, 1),
       leading: IconButton(
         icon: Icon(Icons.arrow_back),
-        onPressed: () => debugPrint('返回'),
+        onPressed: () => Navigator.pop(context),
       ),
     );
   }
