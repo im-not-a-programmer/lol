@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/profile_widget.dart';
-import '../utils/continued.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String iconPeople = 'assets/my/my_tjhy.png';
@@ -225,15 +224,6 @@ class MyGame extends StatefulWidget {
 }
 
 class _MyGameState extends State<MyGame> {
-
-  @override
-  void initState() {
-    super.initState();
-    Sp.getToken((token) {
-      if (token == null) Navigator.of(context).pushNamed('/login');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

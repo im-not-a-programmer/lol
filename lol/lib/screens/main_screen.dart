@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens.dart';
+import '../utils/continued.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -25,8 +26,7 @@ class _MainScreenState extends State<MainScreen>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(length: _bottomNavigationBarList.length, vsync: this);
+    _tabController = TabController(length: _bottomNavigationBarList.length, vsync: this);
   }
 
   @override
@@ -37,6 +37,7 @@ class _MainScreenState extends State<MainScreen>
       body: NotificationListener(
         onNotification: (ScrollEndNotification notification){
           _currentIndex = _tabController.index;
+          _getToken(_currentIndex);
           setState(() {});
         },
         child: TabBarView(
@@ -74,7 +75,18 @@ class _MainScreenState extends State<MainScreen>
   _switchPage(int index) {
     _currentIndex = index;
     _tabController.animateTo(index);
+    _getToken(index);
     setState(() {});
+  }
+
+  _getToken(int index) {
+    Sp.getToken((token) {
+      if (token == null && index == 4) {
+        Navigator.of(context).pushNamed('/login');
+        _currentIndex = 0;
+        _tabController.animateTo(_currentIndex);
+      }
+    });
   }
 
 }
