@@ -16,18 +16,18 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/home/home_banner1.png',
   ];
 
-  List cardData = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: _buildAppBar(),
-      body: Column(
-        children: <Widget>[
-          _buildIntroFigure(context),
-          Expanded(child: _buildCardListView(context))
-        ],
-      ),
+    body: ListView.builder(
+        //实际只会有9个card因为又一个被头部轮播图占了
+        itemCount: 10,
+        itemBuilder: (context,index){
+          if(index == 0)return _buildIntroFigure(context);
+          else return _buildCard();
+    }),
     );
   }
 
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         '关注',
         '热门',
         IconButton(
-          iconSize: 8,
+          padding: EdgeInsets.all(12),
           alignment: Alignment.topCenter,
           icon: Image.asset('assets/home/home_photograph.png'),
           onPressed: _onCameraButtonPressed,
@@ -75,12 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               curve: Curves.fastOutSlowIn,
               pagination: SwiperPagination(
-                margin: EdgeInsets.all(8),
-                builder: DotSwiperPaginationBuilder(
-                  color: Color.fromRGBO(250, 250, 250, 0.7),
-                  activeColor: Colors.white,
-                )
-              ),
+                  margin: EdgeInsets.all(8),
+                  builder: DotSwiperPaginationBuilder(
+                    color: Color.fromRGBO(250, 250, 250, 0.7),
+                    activeColor: Colors.white,
+                  )),
             ),
           ),
         ],
@@ -88,16 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCardListView(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8, top: 12),
-            child: LolCard(),
-          );
-        });
+  Widget _buildCard() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 12),
+      child: LolCard(),
+    );
   }
 
   _onFocusTabPressed() {
@@ -108,8 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print('hot button pressed');
   }
 
-  _onCameraButtonPressed(){
+  _onCameraButtonPressed() {
     print('camera button pressed');
   }
 }
-

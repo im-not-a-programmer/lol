@@ -71,8 +71,8 @@ class PeopleTile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 16),
                 child: SizedBox(
-                    height: 36,
-                    width: 70,
+                    height: size.width/15,
+                    width: size.width/7,
                     child: FocusButton(_onFocusButtonTapped)),
               )
             ],

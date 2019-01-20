@@ -41,12 +41,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
     return _isSearch?_buildSearchBar(size): SwitchAppBar(
       '${widget.text1}',
       '${widget.text2}',
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: IconButton(
-          icon: Image.asset(searchIcon),
-          onPressed: _onSearch,
-        ),
+      IconButton(
+        padding: EdgeInsets.all(16),
+        icon: Image.asset(searchIcon),
+        onPressed: _onSearch,
       ),
       widget.text1Pressed,
       widget.text2Pressed,

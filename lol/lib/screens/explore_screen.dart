@@ -37,8 +37,6 @@ class _ExploreScreenState extends State<ExploreScreen> with AutomaticKeepAliveCl
   }
 
   Widget _buildListBody(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return ListView.builder(
         padding: EdgeInsets.all(0),
         itemCount: 20,
