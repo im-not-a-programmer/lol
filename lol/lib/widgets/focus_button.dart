@@ -24,8 +24,8 @@ class _FocusButtonState extends State<FocusButton> {
   @override
   Widget build(BuildContext context) {
     final mediaWidth = MediaQuery.of(context).size.width;
-    final height = mediaWidth / 18;
-    final width = mediaWidth / 8;
+    final height = mediaWidth / 15;
+    final width = mediaWidth / 6;
 
     return Padding(
       padding: const EdgeInsets.all(1.0),
@@ -42,7 +42,7 @@ class _FocusButtonState extends State<FocusButton> {
                           ? Colors.orangeAccent
                           : Colors.grey),
                   color: _getCurrentColor(),
-                  borderRadius: BorderRadius.circular(8)),
+                  borderRadius: BorderRadius.circular(5)),
               child: _getFocusButton(mediaWidth)),
         ),
       ),
