@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       resizeToAvoidBottomPadding: false,
       appBar: _buildAppBar(),
     body: ListView.builder(
+        physics: ClampingScrollPhysics(),
         //实际只会有9个card因为又一个被头部轮播图占了
         itemCount: 10,
         itemBuilder: (context,index){
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCard() {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8, top: 12),
-      child: LolCard(),
+      child: LolCard([]),
     );
   }
 
