@@ -63,12 +63,23 @@ class _MainScreenState extends State<MainScreen>
       onTap: _switchPage,
       type: BottomNavigationBarType.fixed,
       items: _bottomNavigationBarList
-          .map((item) => BottomNavigationBarItem(
-                icon: SizedBox(height: iconSize, child: Image.asset(item.icon)),
+          .map((item) {
+            if(item == _bottomNavigationBarList[3])
+
+              return BottomNavigationBarItem(
+                icon: SizedBox(height: iconSize, child: HintWidget(true, Image.asset(item.icon))),
                 activeIcon: SizedBox(
-                    height: iconSize, child: HintWidget(true, Image.asset(item.activeIcon))),
+                    height: iconSize, child: HintWidget(true , Image.asset(item.activeIcon))),
                 title: Text(item.title),
-              ))
+              );
+
+              return BottomNavigationBarItem(
+              icon: SizedBox(height: iconSize, child: Image.asset(item.icon)),
+              activeIcon: SizedBox(
+                  height: iconSize, child: Image.asset(item.activeIcon)),
+              title: Text(item.title),
+            );
+      })
           .toList(),
     );
   }

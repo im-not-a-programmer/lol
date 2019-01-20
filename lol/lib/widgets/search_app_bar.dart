@@ -8,8 +8,8 @@ class SearchAppBar extends StatefulWidget {
   final Function text2Pressed;
   final Function search;
 
-  SearchAppBar(this.text1, this.text2, this.text1Pressed,
-      this.text2Pressed,this.search);
+  SearchAppBar(this.text1, this.text2, this.text1Pressed, this.text2Pressed,
+      this.search);
 
   @override
   _SearchAppBarState createState() => _SearchAppBarState();
@@ -38,40 +38,54 @@ class _SearchAppBarState extends State<SearchAppBar> {
     final searchIcon = 'assets/find/find_search2.png';
     final size = MediaQuery.of(context).size;
 
-    return _isSearch?_buildSearchBar(size): SwitchAppBar(
-      '${widget.text1}',
-      '${widget.text2}',
-      IconButton(
-        padding: EdgeInsets.all(16),
-        icon: Image.asset(searchIcon),
-        onPressed: _onSearch,
-      ),
-      widget.text1Pressed,
-      widget.text2Pressed,
-    );
+    return _isSearch
+        ? _buildSearchBar(size)
+        : SwitchAppBar(
+            '${widget.text1}',
+            '${widget.text2}',
+            IconButton(
+              padding: EdgeInsets.all(16),
+              icon: Image.asset(searchIcon),
+              onPressed: _onSearch,
+            ),
+            widget.text1Pressed,
+            widget.text2Pressed,
+          );
   }
 
-  Widget _buildSearchBar(Size size){
+  Widget _buildSearchBar(Size size) {
     return AppBar(
       titleSpacing: 8,
       title: Column(
         children: <Widget>[
-          SizedBox(height: 4,),
+          SizedBox(
+            height: 4,
+          ),
           SizedBox(
             height: 22,
-            child: TextField(
-              autofocus: true,
-              focusNode: _focusNode,
-              controller: _controller,
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  prefixIcon: Icon(Icons.search,color: Colors.grey,),
-                  hintText: '请输入你想要搜索的内容'
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4)
+              ),
+              child: TextField(
+                autofocus: true,
+                focusNode: _focusNode,
+                controller: _controller,
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                    ),
+                    hintText: '请输入你想要搜索的内容'),
               ),
             ),
           ),
-          SizedBox(height: 8,),
+          SizedBox(
+            height: 8,
+          ),
         ],
       ),
       actions: <Widget>[
@@ -79,22 +93,24 @@ class _SearchAppBarState extends State<SearchAppBar> {
           onTap: _onCanceButtonPressed,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Center(child: Text('取消',style: TextStyle(color: Colors.white,fontSize: 18),)),
+            child: Center(
+                child: Text(
+              '取消',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            )),
           ),
         ),
       ],
     );
   }
 
-
-
-  _onSearch(){
+  _onSearch() {
     widget.search();
     _isSearch = true;
     setState(() {});
   }
 
-  _onCanceButtonPressed(){
+  _onCanceButtonPressed() {
     _focusNode.unfocus();
     _isSearch = false;
     setState(() {});

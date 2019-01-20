@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -8,6 +9,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _usePassword = true;
   FocusNode _nameFocus,_pwFocus;
+  bool _isWaitingVerificationCode = false;
+  int _time = 60;
 
   @override
   void initState() {
@@ -129,16 +132,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontSize: 16,
                         color: Colors.grey.withOpacity(0.8),
                       )))),
-          OutlineButton(
-            onPressed: _getVerificationCode,
-            borderSide: BorderSide(color: Colors.black),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            child: Text('获取验证码'),
-          )
+          _buildVerificationButton()
         ],
       ),
+    );
+  }
+
+  //验证按钮
+  Widget _buildVerificationButton(){
+    return OutlineButton(
+      onPressed: _getVerificationCode,
+      borderSide: BorderSide(color: Colors.black),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: _isWaitingVerificationCode?Text('$_time S'):Text('获取验证码'),
     );
   }
 
@@ -178,6 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.only(left: 8, right: 8, top: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           GestureDetector(
               behavior: HitTestBehavior.opaque,
@@ -265,6 +274,22 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  _waitingVerification(){
+    final initTime = 60;
+
+    _isWaitingVerificationCode = true;
+    Timer.periodic(Duration(seconds: 1), (timer){
+      if(_time == 0){
+        _isWaitingVerificationCode = false;
+        _time = initTime;
+        timer.cancel();
+        setState(() {});
+      }
+      _time--;
+      setState(() {});
+    });
+  }
+
   //当用户点击返回按钮
   _onBackButtonTap(){
     Navigator.of(context).pop();
@@ -301,7 +326,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //当用户点击：获取验证码按钮
   _getVerificationCode(){
-    print('get Verification Code button tapped');
+    if(!_isWaitingVerificationCode) _waitingVerification();
   }
 
   //当用户点击微信按钮

@@ -16,8 +16,12 @@ class LolCard extends StatelessWidget {
   final String forward = '710万';
   final String comment = '200万';
   final String time = '1小时前';
-  final List<String> images = [];
-//      List.generate(10, (index) => 'assets/home/home_photo1.png');
+  final List<String> images;
+
+  LolCard(
+      this.images); //      List.generate(10, (index) => 'assets/home/home_photo1.png');
+
+
 
   @override
   Widget build(BuildContext context) {

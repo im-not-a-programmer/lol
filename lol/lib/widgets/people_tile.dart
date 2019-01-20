@@ -15,7 +15,7 @@ class PeopleTile extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       child: Container(
           color: Colors.white,
           height: 100,

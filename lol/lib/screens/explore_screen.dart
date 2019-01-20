@@ -8,9 +8,8 @@ class ExploreScreen extends StatefulWidget {
   _ExploreScreenState createState() => _ExploreScreenState();
 }
 
-class _ExploreScreenState extends State<ExploreScreen> with AutomaticKeepAliveClientMixin{
-
-
+class _ExploreScreenState extends State<ExploreScreen>
+    with AutomaticKeepAliveClientMixin {
   bool _status = true;
 
   @override
@@ -38,13 +37,25 @@ class _ExploreScreenState extends State<ExploreScreen> with AutomaticKeepAliveCl
 
   Widget _buildListBody(BuildContext context) {
     return ListView.builder(
-        padding: EdgeInsets.all(0),
+        padding: EdgeInsets.all(4),
         itemCount: 20,
         itemBuilder: (context, index) {
+          //todo:删除测试代码
+          if (index % 2 != 0) {
+            return _status
+                ? PeopleTile()
+                : Padding(
+              padding: EdgeInsets.all(8),
+              child: LolCard(List.generate(10, (index) => 'assets/home/home_photo1.png')),
+            );
+          }
+
           return _status
               ? PeopleTile()
-              : Padding(padding: EdgeInsets.all(8),child: LolCard(
-          ),);
+              : Padding(
+                  padding: EdgeInsets.all(8),
+                  child: LolCard([]),
+                );
         });
   }
 
@@ -68,4 +79,3 @@ class _ExploreScreenState extends State<ExploreScreen> with AutomaticKeepAliveCl
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
-
