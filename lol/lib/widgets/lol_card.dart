@@ -3,6 +3,7 @@ import 'profile_widget.dart';
 import 'focus_button.dart';
 import 'comment_textfield_sheet.dart';
 import '../screens/text_screen.dart';
+import '../screens/forward_screen.dart';
 
 class LolCard extends StatelessWidget {
 //  final double height;
@@ -30,7 +31,8 @@ class LolCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(6)),
+        color: Colors.white, borderRadius: BorderRadius.circular(6)
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -190,7 +192,7 @@ class LolCard extends StatelessWidget {
           Row(
             children: <Widget>[
               GestureDetector(
-                onTap: () => print('转发'),
+                onTap: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new ForWard())),
                 child: _buildIconRow(Icons.redo, forward, context),
               ),
               SizedBox(

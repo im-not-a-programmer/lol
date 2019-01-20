@@ -13,7 +13,7 @@ class _CommentTextFieldSheetState extends State<CommentTextFieldSheet> {
     final width = MediaQuery.of(context).size.width;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8),
