@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/notice_card.dart';
-import '../widgets/message_tile.dart';
+import '../widgets/profile_widget.dart';
+import '../widgets/focus_button.dart';
 
 class TextScreen extends StatefulWidget {
   @override
@@ -8,23 +8,15 @@ class TextScreen extends StatefulWidget {
 }
 
 class _TextScreenState extends State<TextScreen> {
-  bool status = true;
-  List<Widget> noticeList = [
-    MessageTile('assets/message/message_@me.png', '@我的'),
-    MessageTile('assets/message/message_pinglun.png', '评论'),
-  ];
-
   @override
   void initState() {
     super.initState();
-    for (var i = 0; i < 5; i++) {
-      noticeList.add(NoticeCard());
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
           _buildSearchBar(),
@@ -36,30 +28,82 @@ class _TextScreenState extends State<TextScreen> {
 
   Widget _buildSearchBar() {
     return AppBar(
-      title: Text('正文'),
+      title: new Text('正文'),
+      centerTitle: true,
       backgroundColor: Color.fromRGBO(113, 12, 113, 1),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: Icon(Icons.arrow_back_ios),
         onPressed: () => Navigator.pop(context),
       ),
     );
   }
 
   Widget _buildBody(BuildContext context) {
-    return status
-        ? _buildMessageList(context)
-        : ListView.builder(
-            padding: EdgeInsets.all(8),
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return NoticeCard();
-            });
+    final size = MediaQuery.of(context).size;
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: _buildHeader(size)
+          )
+        ],
+      )
+    );
   }
 
-  Widget _buildMessageList(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(8),
-      children: noticeList,
+  Widget _buildHeader(size) {
+    return Column(children: <Widget>[
+      Container(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 14),
+          child: Text(
+            '是什么导致LOL败给DOTA?',
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: size.width / 18),
+          ),
+        )
+      ),
+      _buildProfileRow(size)
+    ]);
+  }
+  
+  Widget _buildProfileRow(size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        _buildProfileWidget(size),
+        FocusButton(_onFocusButtonTapped)
+      ],
     );
+  }
+
+  _buildProfileWidget(size) {
+    return Row(
+      children: <Widget>[
+        ProfileWidget('assets/home/home_head.png'),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 4, 4, 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                '浮生',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '2-13 8.00',
+                style: TextStyle(fontSize: 10),
+              ),
+            ],
+          ),
+        )
+      ],
+    ); 
+  }
+
+  _onFocusButtonTapped() {
+    print('focus button tapped');
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'profile_widget.dart';
 import 'focus_button.dart';
 import 'comment_textfield_sheet.dart';
+import '../screens/text_screen.dart';
 
 class LolCard extends StatelessWidget {
 //  final double height;
@@ -35,7 +36,7 @@ class LolCard extends StatelessWidget {
               _buildTitle(size),
               images.isNotEmpty
                   ? _buildImageRow(size)
-                  : _buildDetail(text, image, size),
+                  : _buildDetail(text, image, size, context),
             ],
           ),
           SizedBox(
@@ -123,21 +124,24 @@ class LolCard extends StatelessWidget {
     );
   }
 
-  Widget _buildDetail(String text, String image, Size size) {
+  Widget _buildDetail(String text, String image, Size size, context) {
     return Row(
       children: <Widget>[
         Expanded(
             flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: Text(
-                text,
-                maxLines: 4,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: Colors.black.withOpacity(0.5),
-                    fontSize: size.width / 28),
-              ),
+            child: GestureDetector(
+              onTap:() => Navigator.push(context, new MaterialPageRoute(builder: (context) => new TextScreen())),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: Text(
+                  text,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(0.5),
+                      fontSize: size.width / 28),
+                ),
+              )
             )),
         Expanded(
             flex: 1,
@@ -181,7 +185,10 @@ class LolCard extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              _buildIconRow(Icons.redo, forward, context),
+              GestureDetector(
+                onTap: () => print('转发'),
+                child: _buildIconRow(Icons.redo, forward, context),
+              ),
               SizedBox(
                   height: 16,
                   child: RotatedBox(
