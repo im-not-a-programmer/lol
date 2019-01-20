@@ -70,12 +70,15 @@ class _TextScreenState extends State<TextScreen> {
   }
   
   Widget _buildProfileRow(size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        _buildProfileWidget(size),
-        FocusButton(_onFocusButtonTapped)
-      ],
+    return Container(
+      decoration: new BoxDecoration(border: Border.all(style: BorderStyle.solid)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          _buildProfileWidget(size),
+          FocusButton(_onFocusButtonTapped)
+        ],
+      )
     );
   }
 
