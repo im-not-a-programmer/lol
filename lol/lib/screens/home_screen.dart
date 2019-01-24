@@ -9,6 +9,61 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      appBar: PreferredSize(
+        child: _BuildAppBar(),
+        preferredSize: Size.fromHeight(54),
+      ),
+      body: ListView.builder(
+          physics: ClampingScrollPhysics(),
+          //实际只会有9个card因为又一个被头部轮播图占了
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            if (index == 0)
+              return _BuildIntroFigure();
+              return Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, top: 12),
+                child: LolCard([]),
+              );
+          }),
+    );
+  }
+}
+
+class _BuildAppBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SwitchAppBar(
+      '关注',
+      '热门',
+      IconButton(
+        padding: EdgeInsets.all(12),
+        alignment: Alignment.topCenter,
+        icon: Image.asset('assets/home/home_photograph.png'),
+        onPressed: _onCameraButtonPressed,
+      ),
+      _onFocusTabPressed,
+      _onHotButtonPressed,
+    );
+  }
+
+  _onFocusTabPressed() {
+    print('focus button pressed');
+  }
+
+  _onHotButtonPressed() {
+    print('hot button pressed');
+  }
+
+  _onCameraButtonPressed() {
+    print('camera button pressed');
+  }
+}
+
+class _BuildIntroFigure extends StatelessWidget {
   List introImages = [
     'assets/home/home_banner1.png',
     'assets/home/home_banner1.png',
@@ -18,39 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: _buildAppBar(),
-    body: ListView.builder(
-        physics: ClampingScrollPhysics(),
-        //实际只会有9个card因为又一个被头部轮播图占了
-        itemCount: 10,
-        itemBuilder: (context,index){
-          if(index == 0)return _buildIntroFigure(context);
-          else return _buildCard();
-    }),
-    );
-  }
-
-  Widget _buildAppBar() {
-    return PreferredSize(
-      child: SwitchAppBar(
-        '关注',
-        '热门',
-        IconButton(
-          padding: EdgeInsets.all(12),
-          alignment: Alignment.topCenter,
-          icon: Image.asset('assets/home/home_photograph.png'),
-          onPressed: _onCameraButtonPressed,
-        ),
-        _onFocusTabPressed,
-        _onHotButtonPressed,
-      ),
-      preferredSize: Size.fromHeight(54),
-    );
-  }
-
-  Widget _buildIntroFigure(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -86,24 +108,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
-  }
-
-  Widget _buildCard() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 12),
-      child: LolCard([]),
-    );
-  }
-
-  _onFocusTabPressed() {
-    print('focus button pressed');
-  }
-
-  _onHotButtonPressed() {
-    print('hot button pressed');
-  }
-
-  _onCameraButtonPressed() {
-    print('camera button pressed');
   }
 }

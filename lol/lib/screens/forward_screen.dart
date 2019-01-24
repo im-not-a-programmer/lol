@@ -7,27 +7,21 @@ class ForWard extends StatefulWidget {
 
 class _ForWardState extends State<ForWard> {
   int tabStatus = 0;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
-        children: <Widget>[
-          _buildSearchBar(),
-          Expanded(child: _buildBody(context))
-        ],
+        children: <Widget>[_BuildSearchBar(), Expanded(child: _BuildBody())],
       ),
     );
   }
+}
 
-  Widget _buildSearchBar() {
+class _BuildSearchBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return AppBar(
       title: new Text('转发'),
       centerTitle: true,
@@ -38,16 +32,23 @@ class _ForWardState extends State<ForWard> {
       ),
       actions: <Widget>[
         FlatButton(
-          onPressed: () => print('点击了发送'),
-          color: Color.fromRGBO(113, 12, 113, 1),
-          textColor: Colors.white,
-          child: Text('发送')
-        )
+            onPressed: () => print('点击了发送'),
+            color: Color.fromRGBO(113, 12, 113, 1),
+            textColor: Colors.white,
+            child: Text('发送'))
       ],
     );
   }
+}
 
-  Widget _buildBody(BuildContext context) {
+class _BuildBody extends StatelessWidget {
+  final String hintText = ' 快来发表你的看法吧(已有300)';
+  final String image = 'assets/home/home_photo1.png';
+  final String title = '斩月精灵啊实打实的';
+  final String subTitle = '这位老哥666！';
+
+  @override
+  Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Container(
       alignment: Alignment.topCenter,
@@ -56,7 +57,7 @@ class _ForWardState extends State<ForWard> {
           Padding(
             padding: const EdgeInsets.all(8),
             child: Container(
-              height: width/3,
+              height: width / 3,
               width: width - 16,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey.withOpacity(0.2)),
@@ -69,7 +70,7 @@ class _ForWardState extends State<ForWard> {
                   maxLines: 5,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: ' 快来发表你的看法吧(已有300)',
+                      hintText: '$hintText',
                       hintStyle:
                           TextStyle(color: Colors.grey, fontSize: width / 24)),
                 ),
@@ -82,19 +83,19 @@ class _ForWardState extends State<ForWard> {
               color: Color.fromRGBO(247, 247, 247, 1),
               child: Row(
                 children: <Widget>[
-                  Image.asset('assets/home/home_photo1.png', width: width / 4, height: width / 4),
+                  Image.asset('$image', width: width / 4, height: width / 4),
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
                     child: Column(
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8),
-                            child: Text(
-                            '斩月精灵啊实打实的',
-                            style: TextStyle(fontWeight: FontWeight.bold)
-                          ),
+                          child: Text('$title',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
-                        Text('这位老哥666！', style: TextStyle(color: Color.fromRGBO(102, 102, 102, 1)))
+                        Text('$subTitle',
+                            style: TextStyle(
+                                color: Color.fromRGBO(102, 102, 102, 1)))
                       ],
                     ),
                   )
@@ -106,5 +107,4 @@ class _ForWardState extends State<ForWard> {
       ),
     );
   }
- 
 }

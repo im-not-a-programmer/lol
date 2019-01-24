@@ -17,15 +17,32 @@ class _ExploreScreenState extends State<ExploreScreen>
     return Scaffold(
       body: Column(
         children: <Widget>[
-          _buildSearchBar(),
-          Expanded(child: _buildListBody(context))
+          _BuildSearchBar(switchTabPage),
+          Expanded(child: _BuildListBody(_status))
         ],
       ),
       resizeToAvoidBottomPadding: false,
     );
   }
 
-  Widget _buildSearchBar() {
+  switchTabPage() {
+    _status = !_status;
+    setState(() {});
+    print(11);
+  }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+}
+
+class _BuildSearchBar extends StatelessWidget {
+  final Function changePage;
+
+  _BuildSearchBar(this.changePage);
+
+  @override
+  Widget build(BuildContext context) {
     return SearchAppBar(
       '找人',
       '话题',
@@ -35,22 +52,44 @@ class _ExploreScreenState extends State<ExploreScreen>
     );
   }
 
-  Widget _buildListBody(BuildContext context) {
+  _onFindTabTapped() {
+    changePage();
+    print('find button pressed');
+  }
+
+  _onTopicTabTapped() {
+    changePage();
+    print('topic button pressed');
+  }
+
+  _onSearchButtonTapped() {
+    print('search button pressed');
+  }
+}
+
+class _BuildListBody extends StatelessWidget {
+  final bool status;
+
+  _BuildListBody(this.status);
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
         padding: EdgeInsets.all(4),
         itemCount: 20,
         itemBuilder: (context, index) {
           //todo:删除测试代码
           if (index % 2 != 0) {
-            return _status
+            return status
                 ? PeopleTile()
                 : Padding(
-              padding: EdgeInsets.all(8),
-              child: LolCard(List.generate(10, (index) => 'assets/home/home_photo1.png')),
-            );
+                    padding: EdgeInsets.all(8),
+                    child: LolCard(List.generate(
+                        10, (index) => 'assets/home/home_photo1.png')),
+                  );
           }
 
-          return _status
+          return status
               ? PeopleTile()
               : Padding(
                   padding: EdgeInsets.all(8),
@@ -58,24 +97,4 @@ class _ExploreScreenState extends State<ExploreScreen>
                 );
         });
   }
-
-  _onFindTabTapped() {
-    _status = true;
-    setState(() {});
-    print('find button pressed');
-  }
-
-  _onTopicTabTapped() {
-    _status = false;
-    setState(() {});
-    print('topic button pressed');
-  }
-
-  _onSearchButtonTapped() {
-    print('search button pressed');
-  }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
